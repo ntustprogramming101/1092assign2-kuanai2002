@@ -41,10 +41,8 @@ int cabbageX = floor(random(7))*80;
 int cabbageY = y + floor(random(4))*80;
 
 //life
-int lifeX = 0, deadline = lifeX + 140;
-boolean life3 = false;
-
-
+final int LIFE_1 = 1, LIFE_2 = 2, LIFE_3 = 3;
+int gameLife = LIFE_2;
 
 void setup() {
   size(640, 480, P2D);
@@ -111,44 +109,49 @@ void draw() {
       ellipse(590, 50, 120, 120);
                  
       //soldier
-      if(groundhogX < soldierX && groundhogX+80 > soldierX-80
+      if(groundhogX < soldierX+80 && groundhogX+80 > soldierX
       && groundhogY < soldierY+80 && groundhogY+80 > soldierY){
-                
-        if(deadline == 70){
-          lifeX = - 140;
+        if(gameLife == LIFE_1){
           gameState = GAME_OVER;
           groundhogX = 320;
           groundhogY = 80;
         }
         
-        if(deadline == 140){
-          lifeX = -70;
-          deadline = lifeX + 140;
+        if(gameLife == LIFE_2){
+          gameLife = LIFE_1;
           groundhogX = 320;
           groundhogY = 80;
         }
         
-        if(deadline == 210){
-          life3 = false;
-          deadline = lifeX + 140;
+        if(gameLife == LIFE_3){
+          gameLife = LIFE_2;
           groundhogX = 320;
           groundhogY = 80;
         }
-        
       }
-
       
       image(soldier, soldierX - 80, soldierY);
       soldierX += soldierSpeed;
       soldierX %= 640+80;
       
       //life
-      image(life, lifeX+10, 10);
-      image(life, lifeX+80, 10);
-      
-      if(deadline == 210){
-        life3 = true;
-        image(life, lifeX+150, 10);
+      switch(gameLife){
+        
+        case LIFE_1:
+        image(life, 10, 10);
+        break;
+        
+        case LIFE_2:
+        image(life, 10, 10);
+        image(life, 80, 10);
+        break;
+        
+        case LIFE_3:
+        image(life, 10, 10);
+        image(life, 80, 10);
+        image(life, 150, 10);
+        break;
+        
       }
       
       //cabbage
@@ -159,12 +162,7 @@ void draw() {
       if(groundhogX < cabbageX+80 && groundhogX+80 > cabbageX
       && groundhogY < cabbageY+80 && groundhogY+80 > cabbageY){
          Cabbage = false;
-         if(life3 == false){
-           deadline = lifeX + 210;
-           life3 = true;
-         }else{
-           lifeX = 0;
-         }
+         gameLife = LIFE_2;
       }
       
       //groundhog
@@ -196,8 +194,7 @@ void draw() {
         image(restartHovered, 248, 360);
         if(mousePressed){
           gameState = GAME_RUN;
-          lifeX = 0;
-          deadline = 140;
+          gameLife = LIFE_2;
           image(groundhogIdle, groundhogX, groundhogY);
           Cabbage = true;
         }
