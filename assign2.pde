@@ -153,12 +153,15 @@ void draw() {
             
       if(groundhogX < cabbageX+80 && groundhogX+80 > cabbageX
       && groundhogY < cabbageY+80 && groundhogY+80 > cabbageY){
-         Cabbage = false;
-         if(deadline == 140){
-           deadline = lifeX + 210;
-           life3 = true;
-         }else{
-           lifeX = 0;
+         if(Cabbage = true){
+           if(deadline == 140){
+             Cabbage = false;
+             deadline = lifeX + 210;
+             life3 = true;
+           }else{
+             Cabbage = false;
+             lifeX = 0;
+           }
          }
       }
       
@@ -214,23 +217,16 @@ void keyPressed(){
       case DOWN:
       groundhogY += 80;
       if(groundhogY > 400) groundhogY = 400;
-      showPhoto = downPhoto;
       break;
       
       case LEFT:
       groundhogX -= 80;
-      if(groundhogY < 160){
-        groundhogX = 320;
-      }else if(groundhogX < 0) groundhogX = 0;
-      showPhoto = leftPhoto;
+      if(groundhogX < 0) groundhogX = 0;
       break;
       
       case RIGHT:
       groundhogX += 80;
-      if(groundhogY < 160){
-        groundhogX = 320;
-      }else if(groundhogX > 560) groundhogX = 560;
-      showPhoto = rightPhoto;
+      if(groundhogX > 560) groundhogX = 560;
       break;
       
     }
