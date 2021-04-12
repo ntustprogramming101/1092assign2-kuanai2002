@@ -122,6 +122,7 @@ void draw() {
           deadline = lifeX + 140;
           groundhogX = 320;
           groundhogY = 80;
+          image(groundhogIdle, 320, 80);
         }
         
         if(deadline == 210){
@@ -129,6 +130,7 @@ void draw() {
           life3 = false;
           groundhogX = 320;
           groundhogY = 80;
+          image(groundhogIdle, 320, 80);
         }
       }
       
@@ -192,7 +194,11 @@ void draw() {
           lifeX = 0;
           deadline = lifeX + 140;
           image(groundhogIdle, groundhogX, groundhogY);
+          cabbageX = floor(random(7))*80;
+          cabbageY = y + floor(random(4))*80;
           Cabbage = true;
+          soldierY = y + floor(random(4))*80;
+          
         }
       }else{
         image(restartNormal, 248, 360);
