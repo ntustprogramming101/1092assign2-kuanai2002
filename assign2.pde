@@ -202,7 +202,6 @@ void draw() {
       }
         break;
       }
-      println(hp);
 }
 
 void keyPressed(){
