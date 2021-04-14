@@ -61,7 +61,6 @@ void setup() {
   groundhogLeft = loadImage("img/groundhogLeft.png");
   groundhogRight = loadImage("img/groundhogRight.png");
   
-  
   soldierSpeed = 5;
 }
 
