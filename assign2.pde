@@ -36,7 +36,7 @@ float soldierHeight = 80;
 float soldierSpeed;
 
 //cabbage
-int cabbageX = floor(random(7))*80;
+int cabbageX = floor(random(8))*80;
 int cabbageY = y + floor(random(4))*80;
 
 //life
