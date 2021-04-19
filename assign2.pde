@@ -21,11 +21,10 @@ boolean downPressed, rightPressed, leftPressed = false;
 int groundhogX = 320, groundhogY = 80;
 float groundhogWidth = 80;
 float groundhogHeight = 80;
-final int upPhoto = 0;
-final int downPhoto = 1;
-final int leftPhoto = 2;
-final int rightPhoto = 3;
-int showPhoto = upPhoto;
+int down = 0;
+int left = 0;
+int right = 0;
+float groundhogSpeed = 1;
 
 //soldier
 int y = 160;
@@ -161,22 +160,45 @@ void draw() {
       }
       
       //groundhog
-      switch(showPhoto){
-        case upPhoto:
+      if(down == 0 && left == 0 && right == 0){
         image(groundhogIdle, groundhogX, groundhogY);
-        break;
-        
-        case downPhoto:
-        image(groundhogDown, groundhogX, groundhogY);
-        break;
-        
-        case leftPhoto:
-        image(groundhogLeft, groundhogX, groundhogY);
-        break;
-        
-        case rightPhoto:
-        image(groundhogRight, groundhogX, groundhogY);
-        break;
+      }
+      
+      if(down > 0){
+        if(down == 1){
+          groundhogY = groundhogY + 80;
+          image(groundhogIdle, groundhogX, groundhogY);
+          groundhogSpeed = 1;
+          }else{
+          image(groundhogDown, groundhogX, groundhogY+80/15*groundhogSpeed);
+          groundhogSpeed += 1;
+        }
+        down -= 1;
+      }
+          
+      
+      if(left > 0){
+        if(left == 1){
+          groundhogX = groundhogX - 80;
+          image(groundhogIdle, groundhogX, groundhogY);
+          groundhogSpeed = 1;
+        }else{
+          image(groundhogLeft, groundhogX-80/15*groundhogSpeed, groundhogY);
+          groundhogSpeed += 1;
+        }
+        left -= 1;
+      }
+      
+        if(right > 0){
+        if(right == 1){
+          groundhogX = groundhogX + 80;
+          image(groundhogIdle, groundhogX, groundhogY);
+          groundhogSpeed = 1;
+        }else{
+          image(groundhogRight, groundhogX+80/15*groundhogSpeed, groundhogY);
+          groundhogSpeed += 1;
+        }
+        right -= 1;
       }
             
       break;
@@ -204,27 +226,32 @@ void draw() {
 }
 
 void keyPressed(){
+  if(down>0 || left>0 || right>0){
+    return;
+  }
+  
   if(key == CODED){
     switch(keyCode){
-      
       case DOWN:
-      groundhogY += 80;
-      if(groundhogY > 400) groundhogY = 400;
+      if(groundhogY < 400){
+        down = 15;
+      }
       break;
-      
+        
       case LEFT:
-      groundhogX -= 80;
-      if(groundhogX < 0) groundhogX = 0;
+      if(groundhogX > 0){
+        left = 15;
+      }
       break;
       
       case RIGHT:
-      groundhogX += 80;
-      if(groundhogX > 560) groundhogX = 560;
+      if(groundhogX < 560){
+        right = 15;
+      }
       break;
-      
+        
     }
   }
-  
 }
 
 void keyReleased(){
