@@ -213,7 +213,7 @@ void draw() {
           gameState = GAME_RUN;
           hp = 2;
           image(groundhogIdle, groundhogX, groundhogY);
-          cabbageX = floor(random(7))*80;
+          cabbageX = floor(random(8))*80;
           cabbageY = y + floor(random(4))*80;
           soldierY = y + floor(random(4))*80;
           
